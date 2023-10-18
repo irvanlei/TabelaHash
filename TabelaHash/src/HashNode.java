@@ -1,6 +1,4 @@
-import java.util.LinkedList;
-
-class HashNode {
+public class HashNode {
     int key;
     String value;
     HashNode next;

@@ -5,7 +5,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         HashTable tableChaining = new HashTable(10);
         HashTable tableLinear = new HashTable(10);
-        HashTable currentTable = tableChaining; // Inicia com encadeamento aberto
+        HashTable currentTable = tableChaining;
 
         while (true) {
             System.out.println("Escolha uma opção:");
@@ -18,7 +18,7 @@ public class Main {
             System.out.println("7. Sair");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Limpar a nova linha
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -48,7 +48,7 @@ public class Main {
                     // Teste de eficiência em busca (Chaining)
                     long startTimeEfficiencyChaining = System.currentTimeMillis();
                     for (int i = 0; i < 1000; i++) {
-                        tableChaining.search("ChaveInexistente"); // Realiza buscas repetidas para teste
+                        tableChaining.search("ChaveInexistente");
                     }
                     long endTimeEfficiencyChaining = System.currentTimeMillis();
                     System.out.println("Tempo de teste de eficiência em busca (Encadeiamento): " + (endTimeEfficiencyChaining - startTimeEfficiencyChaining) + " ms");
@@ -58,7 +58,7 @@ public class Main {
                     // Teste de eficiência em busca (Linear)
                     long startTimeEfficiencyLinear = System.currentTimeMillis();
                     for (int i = 0; i < 1000; i++) {
-                        tableLinear.search("ChaveInexistente"); // Realiza buscas repetidas para teste
+                        tableLinear.search("ChaveInexistente");
                     }
                     long endTimeEfficiencyLinear = System.currentTimeMillis();
                     System.out.println("Tempo de teste de eficiência em busca (Linear): " + (endTimeEfficiencyLinear - startTimeEfficiencyLinear) + " ms");

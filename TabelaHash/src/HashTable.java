@@ -1,9 +1,8 @@
 import java.util.LinkedList;
 
-class HashTable {
+public class HashTable {
     private int capacity;
     private LinkedList<HashNode>[] table;
-    private double loadThreshold = 0.7;
     private int currentSize = 0;
 
     public HashTable(int capacity) {
@@ -20,6 +19,7 @@ class HashTable {
     }
 
     public void insert(int key, String value) {
+        double loadThreshold = 0.7;
         if ((double) currentSize / capacity >= loadThreshold) {
             resize();
         }
@@ -28,14 +28,12 @@ class HashTable {
         int indexLinear = indexChaining;
         HashNode newNode = new HashNode(key, value);
 
-        // Inserção com tratamento de colisões por encadeamento aberto
         if (table[indexChaining] == null) {
             table[indexChaining] = new LinkedList<>();
         }
         table[indexChaining].add(newNode);
         currentSize++;
 
-        // Inserção com tratamento de colisões por sondagem linear
         int attempt = 1;
         while (table[indexLinear] != null) {
             indexLinear = hashLinear(key, attempt);
@@ -47,7 +45,7 @@ class HashTable {
         table[indexLinear].add(newNode);
     }
 
-    public String search(String value) {
+    public void search(String value) {
         String resultChaining = searchByValueChaining(value);
         String resultLinear = searchByValueLinear(value);
 
@@ -57,11 +55,9 @@ class HashTable {
         System.out.println("Resultado da busca (Linear): " + resultLinear);
         System.out.println("Tempo de busca (Linear): 0 ms");
 
-        return resultChaining;
     }
 
     public String searchByValueChaining(String value) {
-        // Busca com tratamento de colisões por encadeamento aberto
         for (LinkedList<HashNode> chain : table) {
             if (chain != null) {
                 for (HashNode node : chain) {
@@ -88,7 +84,7 @@ class HashTable {
         return null;
     }
 
-    public String searchByValue(String value) {
+    public void searchByValue(String value) {
         long startTimeChaining = System.nanoTime();
         String resultChaining = searchByValueChaining(value);
         long endTimeChaining = System.nanoTime();
@@ -111,12 +107,11 @@ class HashTable {
             System.out.println("Elemento não encontrado (Linear).");
         }
 
-        return resultChaining;
     }
 
 
 
-    public String deleteByValue(String value) {
+    public void deleteByValue(String value) {
         String resultChaining = deleteByValueChaining(value);
         String resultLinear = deleteByValueLinear(value);
 
@@ -132,11 +127,9 @@ class HashTable {
             System.out.println("Elemento não encontrado (Linear).");
         }
 
-        return resultChaining;
     }
 
     public String deleteByValueChaining(String value) {
-        // Remoção com tratamento de colisões por encadeamento aberto
         for (int index = 0; index < capacity; index++) {
             LinkedList<HashNode> chain = table[index];
             if (chain != null) {
@@ -159,7 +152,6 @@ class HashTable {
     }
 
     public String deleteByValueLinear(String value) {
-        // Remoção com tratamento de colisões por sondagem linear
         for (int indexLinear = 0; indexLinear < capacity; indexLinear++) {
             LinkedList<HashNode> chain = table[indexLinear];
             if (chain != null) {
