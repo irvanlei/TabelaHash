@@ -22,7 +22,8 @@ public class Menu {
             System.out.println("4. Teste de eficiência em busca (Encadeamento)");
             System.out.println("5. Teste de eficiência em busca (Linear)");
             System.out.println("6. Alternar método de tratamento de colisões");
-            System.out.println("7. Sair");
+            System.out.println("7. Imprimir tabela");
+            System.out.println("8. Sair");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -50,7 +51,6 @@ public class Menu {
                     break;
 
                 case 4:
-                    // Teste de eficiência em busca (Chaining)
                     long startTimeEfficiencyChaining = System.currentTimeMillis();
                     for (int i = 0; i < 1000; i++) {
                         tableChaining.search("ChaveInexistente");
@@ -60,7 +60,6 @@ public class Menu {
                     break;
 
                 case 5:
-                    // Teste de eficiência em busca (Linear)
                     long startTimeEfficiencyLinear = System.currentTimeMillis();
                     for (int i = 0; i < 1000; i++) {
                         tableLinear.search("ChaveInexistente");
@@ -80,6 +79,10 @@ public class Menu {
                     break;
 
                 case 7:
+                    currentTable.printTable();
+                    break;
+
+                case 8:
                     System.out.println("Encerrando o programa.");
                     scanner.close();
                     System.exit(0);

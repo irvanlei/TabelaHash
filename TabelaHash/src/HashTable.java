@@ -26,23 +26,20 @@ public class HashTable {
 
         int indexChaining = hashChaining(key);
         int indexLinear = indexChaining;
-        HashNode newNode = new HashNode(key, value);
 
         if (table[indexChaining] == null) {
             table[indexChaining] = new LinkedList<>();
         }
-        table[indexChaining].add(newNode);
-        currentSize++;
 
-        int attempt = 1;
+        int attempt = 0;
         while (table[indexLinear] != null) {
-            indexLinear = hashLinear(key, attempt);
-            attempt++;
+            indexLinear = hashLinear(key, ++attempt);
         }
-        if (table[indexLinear] == null) {
-            table[indexLinear] = new LinkedList<>();
-        }
+
+        HashNode newNode = new HashNode(key, value);
+        table[indexLinear] = new LinkedList<>();
         table[indexLinear].add(newNode);
+        currentSize++;
     }
 
     public void search(String value) {
@@ -109,8 +106,6 @@ public class HashTable {
 
     }
 
-
-
     public void deleteByValue(String value) {
         String resultChaining = deleteByValueChaining(value);
         String resultLinear = deleteByValueLinear(value);
@@ -172,6 +167,20 @@ public class HashTable {
         }
         return null;
     }
+
+    public void printTable() {
+        for (int index = 0; index < capacity; index++) {
+            System.out.print("Índice " + index + ": ");
+            LinkedList<HashNode> chain = table[index];
+            if (chain != null) {
+                for (HashNode node : chain) {
+                    System.out.print("(" + node.key + ", " + node.value + ") -> ");
+                }
+            }
+            System.out.println("null");
+        }
+    }
+
 
     private void resize() {
         int newCapacity = 2 * capacity;
